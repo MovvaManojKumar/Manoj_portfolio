@@ -1,0 +1,21 @@
+# Portfolio Quality Rules
+
+- Inspect before editing.
+- Follow the approved design specification.
+- Never invent profile or project facts.
+- Keep all important content visible without animation.
+- Use React and TypeScript unless the existing repository requires another compatible setup.
+- Prefer Motion for React for normal UI animation.
+- Use GSAP only for complex timelines that justify it.
+- Never implement the same animation with multiple libraries.
+- Use CSS for simple hover and focus states.
+- Prefer transform and opacity for animation.
+- Respect prefers-reduced-motion.
+- Keep the website usable on touch devices.
+- Avoid unnecessary dependencies.
+- Do not introduce heavy 3D libraries without a documented reason.
+- Do not expose client-confidential information.
+- Test each implementation phase.
+- Fix errors before moving to the next phase.
+- Review all diffs.
+- Do not claim tests passed unless they were actually executed.

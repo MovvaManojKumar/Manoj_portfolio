@@ -1,0 +1,46 @@
+.shimmerText {
+  background: linear-gradient(
+    90deg,
+    var(--color-accent) 0%,
+    #FFF 45%,
+    var(--color-accent) 70%,
+    var(--color-accent-hover) 100%
+  );
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shine 4.5s linear infinite;
+  display: inline-block;
+}
+
+[data-theme="light"] .shimmerText {
+  background: linear-gradient(
+    90deg,
+    #B86E00 0%,
+    #101820 40%,
+    #B86E00 70%,
+    #9E5D00 100%
+  );
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.scrambleText {
+  font-family: var(--font-mono);
+  display: inline-block;
+  letter-spacing: 0.05em;
+}
+
+.charSpan {
+  display: inline-block;
+  will-change: transform, opacity;
+}
