@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sun, Moon, Zap, ZapOff, Menu, X, ArrowUpRight } from 'lucide-react';
+import { Sun, Moon, Zap, ZapOff, Menu, X, FileText, ArrowUpRight } from 'lucide-react';
 import styles from './Navbar.module.css';
 import { useTheme } from '../../hooks/useTheme';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
@@ -14,10 +14,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection = 'hero' }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { label: 'About', href: '#about', id: 'about' },
-    { label: 'Experience', href: '#experience', id: 'experience' },
     { label: 'Skills', href: '#skills', id: 'skills' },
+    { label: 'Experience', href: '#experience', id: 'experience' },
     { label: 'Projects', href: '#projects', id: 'projects' },
+    { label: 'About', href: '#about', id: 'about' },
     { label: 'Education', href: '#education', id: 'education' },
     { label: 'Contact', href: '#contact', id: 'contact' }
   ];
@@ -33,7 +33,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection = 'hero' }) => {
           <div className={styles.monogram}>MK</div>
           <div className={styles.statusIndicator}>
             <span className={styles.pulseDot} />
-            <span>SYS_ONLINE: 99.98%</span>
+            <span>AVAILABLE · 1-MO NOTICE</span>
           </div>
         </a>
 
@@ -57,6 +57,19 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection = 'hero' }) => {
 
         {/* Action & Accessibility Controls */}
         <div className={styles.actionControls}>
+          {/* Always Visible Resume CTA (Desktop & Mobile) */}
+          <a
+            href="/resume/Manoj_Kumar_Movva.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.resumeHeaderBtn}
+            aria-label="Download verified resume PDF"
+          >
+            <FileText size={14} />
+            <span>RESUME</span>
+            <ArrowUpRight size={13} className={styles.resumeArrow} />
+          </a>
+
           <button
             type="button"
             onClick={toggleTheme}
@@ -76,7 +89,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection = 'hero' }) => {
             title={reducedMotion ? 'Enable Animations' : 'Reduce Motion'}
           >
             {reducedMotion ? <ZapOff size={15} color="#FF5D5D" /> : <Zap size={15} color="#3DD68C" />}
-            <span className="font-mono">{reducedMotion ? 'MOTION: OFF' : 'MOTION: ON'}</span>
+            <span className="font-mono">{reducedMotion ? 'M:OFF' : 'M:ON'}</span>
           </button>
 
           <button
@@ -86,7 +99,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection = 'hero' }) => {
             aria-label={mobileMenuOpen ? 'Close Menu' : 'Open Menu'}
             aria-expanded={mobileMenuOpen}
           >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
@@ -111,10 +124,11 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection = 'hero' }) => {
             href="/resume/Manoj_Kumar_Movva.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className={styles.controlButton}
-            style={{ padding: '0.8rem', justifyContent: 'center', backgroundColor: 'var(--color-accent)', color: '#0E1620', fontWeight: 600 }}
+            className={styles.mobileResumeBtn}
+            onClick={handleLinkClick}
           >
-            <span>View Resume (PDF)</span>
+            <FileText size={16} />
+            <span>Download Official Resume (PDF)</span>
             <ArrowUpRight size={16} />
           </a>
         </div>

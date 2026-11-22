@@ -3,15 +3,13 @@ import { motion, useScroll, useSpring } from 'motion/react';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { Hero } from './components/sections/Hero';
-import { About } from './components/sections/About';
-import { Experience } from './components/sections/Experience';
 import { Skills } from './components/sections/Skills';
+import { Experience } from './components/sections/Experience';
 import { Projects } from './components/sections/Projects';
-import { Learning } from './components/sections/Learning';
+import { About } from './components/sections/About';
 import { Education } from './components/sections/Education';
 import { Contact } from './components/sections/Contact';
 import { BackgroundTelemetry } from './components/effects/BackgroundTelemetry';
-import { LiveTelemetryTicker } from './components/effects/LiveTelemetryTicker';
 
 export const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('hero');
@@ -23,7 +21,7 @@ export const App: React.FC = () => {
   });
 
   useEffect(() => {
-    const sectionIds = ['hero', 'about', 'experience', 'skills', 'projects', 'education', 'contact'];
+    const sectionIds = ['hero', 'skills', 'experience', 'projects', 'about', 'education', 'contact'];
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 180;
       for (const id of sectionIds) {
@@ -45,7 +43,7 @@ export const App: React.FC = () => {
 
   return (
     <div style={{ position: 'relative', minHeight: '100vh' }}>
-      {/* Dynamic Animated Telemetry Canvas Background */}
+      {/* Subtle Incident Room Background Grid */}
       <BackgroundTelemetry />
 
       {/* Scroll Progress Bar */}
@@ -64,20 +62,16 @@ export const App: React.FC = () => {
         }}
       />
 
-      {/* Live Incident Telemetry Realtime Ticker */}
-      <LiveTelemetryTicker />
-
-      {/* Sticky Telemetry Navbar */}
+      {/* Sticky Recruiter Navbar */}
       <Navbar activeSection={activeSection} />
 
-      {/* Main Flow Content */}
+      {/* Recruiter-First Bento Main Flow */}
       <main>
         <Hero onExploreWorkClick={() => setActiveSection('projects')} />
-        <About />
-        <Experience />
         <Skills />
+        <Experience />
         <Projects />
-        <Learning />
+        <About />
         <Education />
         <Contact />
       </main>

@@ -1,57 +1,48 @@
 .contactSection {
-  padding-block: 6rem;
-  border-top: 1px solid var(--border-subtle);
+  padding: 4.5rem 0 6rem;
   position: relative;
 }
 
 .contactBox {
-  background-color: var(--bg-surface);
+  background-color: var(--bg-card);
   border: 1px solid var(--border-active);
   border-radius: var(--radius-lg);
-  padding: 3.5rem;
-  box-shadow: var(--shadow-lg);
+  padding: 3rem 2.5rem;
+  box-shadow: var(--shadow-md);
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 1.5rem;
   text-align: center;
-  gap: 1.75rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.contactBox::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(to right, var(--color-cyan), var(--color-accent), var(--color-health));
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .sectionLabel {
   font-family: var(--font-mono);
   font-size: 0.8125rem;
   color: var(--color-accent);
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .contactTitle {
   font-family: var(--font-display);
-  font-size: clamp(2.25rem, 4.5vw, 3.25rem);
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
   font-weight: 800;
-  line-height: 1.1;
   color: var(--text-primary);
-  max-width: 650px;
+  line-height: 1.2;
 }
 
 .contactDesc {
-  font-size: 1.125rem;
-  color: var(--text-secondary);
-  max-width: 540px;
+  font-size: 1rem;
   line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: 650px;
+}
+
+.highlightText {
+  color: var(--text-primary);
+  font-weight: 600;
 }
 
 .dispatchCluster {
@@ -59,64 +50,106 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  margin-top: 0.5rem;
+  gap: 0.9rem;
+  width: 100%;
+  padding-top: 0.5rem;
 }
 
 .copyEmailBtn {
   display: inline-flex;
   align-items: center;
-  gap: 0.65rem;
-  padding: 0.85rem 1.65rem;
+  gap: 0.5rem;
+  padding: 0.75rem 1.4rem;
   background-color: var(--color-accent);
   color: #0E1620;
-  font-family: var(--font-mono);
-  font-size: 0.9375rem;
-  font-weight: 700;
   border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-sm);
-  transition: all var(--duration-fast);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(245, 165, 36, 0.25);
+  transition: all var(--duration-fast) var(--ease-in-out);
 }
 
 .copyEmailBtn:hover {
   background-color: var(--color-accent-hover);
-  box-shadow: var(--shadow-glow-amber);
   transform: translateY(-2px);
 }
 
 .actionBtn {
   display: inline-flex;
   align-items: center;
-  gap: 0.65rem;
-  padding: 0.85rem 1.45rem;
-  background-color: var(--bg-surface-elevated);
-  border: 1px solid var(--border-active);
+  gap: 0.45rem;
+  padding: 0.75rem 1.2rem;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
   color: var(--text-primary);
   font-family: var(--font-mono);
-  font-size: 0.9375rem;
+  font-size: 0.82rem;
   font-weight: 600;
-  border-radius: var(--radius-sm);
-  transition: all var(--duration-fast);
+  text-decoration: none;
+  transition: all var(--duration-fast) var(--ease-in-out);
 }
 
 .actionBtn:hover {
+  border-color: var(--color-accent);
+  background-color: var(--bg-surface-elevated);
+  transform: translateY(-2px);
+}
+
+.resumeActionBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.75rem 1.2rem;
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-active);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all var(--duration-fast) var(--ease-in-out);
+}
+
+.resumeActionBtn:hover {
   border-color: var(--color-accent);
   color: var(--color-accent);
   transform: translateY(-2px);
 }
 
-.statusNotice {
-  display: inline-flex;
+.endpointStatus {
+  display: flex;
   align-items: center;
   gap: 0.5rem;
+  margin-top: 0.5rem;
   font-family: var(--font-mono);
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   color: var(--text-tertiary);
-  margin-top: 1rem;
+}
+
+.statusDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--color-health);
 }
 
 @media (max-width: 640px) {
   .contactBox {
     padding: 2rem 1.25rem;
+  }
+
+  .dispatchCluster {
+    flex-direction: column;
+  }
+
+  .copyEmailBtn, .actionBtn, .resumeActionBtn {
+    width: 100%;
+    justify-content: center;
   }
 }

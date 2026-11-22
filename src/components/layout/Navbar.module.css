@@ -30,14 +30,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   background-color: var(--bg-surface);
   border: 1px solid var(--border-active);
   border-radius: var(--radius-sm);
   font-family: var(--font-mono);
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   color: var(--color-accent);
   box-shadow: var(--shadow-sm);
   transition: all var(--duration-fast) var(--ease-in-out);
@@ -51,15 +51,16 @@
 .statusIndicator {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.45rem;
   padding: 0.25rem 0.65rem;
   background-color: var(--color-health-subtle);
   border: 1px solid rgba(61, 214, 140, 0.25);
   border-radius: var(--radius-full);
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 600;
   color: var(--color-health);
+  letter-spacing: 0.02em;
 }
 
 .pulseDot {
@@ -73,13 +74,13 @@
 .navLinks {
   display: flex;
   align-items: center;
-  gap: 1.75rem;
+  gap: 1.5rem;
   list-style: none;
 }
 
 .navLink {
   font-family: var(--font-mono);
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-weight: 500;
   color: var(--text-secondary);
   transition: color var(--duration-fast) var(--ease-in-out);
@@ -93,26 +94,53 @@
 
 .navLinkActive {
   color: var(--color-accent);
+  font-weight: 600;
 }
 
 .actionControls {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
+}
+
+.resumeHeaderBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.42rem 0.75rem;
+  background-color: var(--color-accent);
+  color: #0E1620;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(245, 165, 36, 0.25);
+  transition: all var(--duration-fast) var(--ease-in-out);
+}
+
+.resumeHeaderBtn:hover {
+  background-color: var(--color-accent-hover);
+  transform: translateY(-1px);
+}
+
+.resumeArrow {
+  opacity: 0.8;
 }
 
 .controlButton {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
-  padding: 0.45rem 0.75rem;
+  gap: 0.35rem;
+  padding: 0.42rem 0.65rem;
   background-color: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
   color: var(--text-secondary);
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 500;
   transition: all var(--duration-fast) var(--ease-in-out);
 }
@@ -128,13 +156,29 @@
   background: none;
   border: none;
   color: var(--text-primary);
-  padding: 0.5rem;
+  padding: 0.4rem;
   cursor: pointer;
 }
 
 /* Mobile Drawer */
 .mobileDrawer {
   display: none;
+}
+
+.mobileResumeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1rem;
+  background-color: var(--color-accent);
+  color: #0E1620;
+  border-radius: var(--radius-md);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: var(--shadow-glow-amber);
 }
 
 @media (max-width: 900px) {
@@ -186,10 +230,16 @@
 
   .mobileLink {
     font-family: var(--font-display);
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     font-weight: 600;
     color: var(--text-primary);
     padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--border-subtle);
+  }
+}
+
+@media (max-width: 480px) {
+  .controlButton {
+    display: none; /* Hide theme/motion text buttons on smallest mobile to keep header clean and prevent clutter */
   }
 }

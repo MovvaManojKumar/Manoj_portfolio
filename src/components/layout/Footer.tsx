@@ -13,7 +13,7 @@ export const Footer: React.FC = () => {
         <div className={styles.rightGroup}>
           <div className={styles.telemetryPing}>
             <span className={styles.dot} />
-            <span>INCIDENT ROOM TELEMETRY: 99.98% HEALTHY</span>
+            <span>SYSTEM STATUS: ONLINE · READY TO ONBOARD</span>
           </div>
 
           <a href="#hero" className={styles.footerLink}>

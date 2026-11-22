@@ -1,235 +1,180 @@
-import React, { useState, useEffect } from 'react';
-import { ArrowDown, FileText, CheckCircle2, MapPin, Clock, ShieldCheck, Copy, Check, Filter } from 'lucide-react';
+import React from 'react';
+import { ArrowDown, FileText, MapPin, Clock, ShieldCheck, Terminal, CheckCircle2 } from 'lucide-react';
 import styles from './Hero.module.css';
 import { profileData } from '../../data/profile';
 import { Reveal } from '../motion/Reveal';
-import { MagneticButton } from '../motion/MagneticButton';
-import { useReducedMotion } from '../../hooks/useReducedMotion';
-import { KineticTitle, ShimmerSpan, ScrambleText } from '../effects/AnimatedText';
 
 interface HeroProps {
   onExploreWorkClick?: () => void;
 }
 
-interface TraceLog {
-  id: number;
-  time: string;
-  level: 'INFO' | 'WARN' | 'DIAGNOSTIC' | 'OK';
-  category: 'ALL' | 'SYSTEM' | 'TRAFFIC' | 'DATABASE';
-  message: string;
-}
-
-const TRACE_LOGS: TraceLog[] = [
-  { id: 1, time: '00:00.12', level: 'INFO', category: 'SYSTEM', message: 'Session opened: HTTP/2 TLS 1.3 handshake ok' },
-  { id: 2, time: '00:00.45', level: 'INFO', category: 'SYSTEM', message: 'Service Fabric cluster: RMA Policy Engine nodes online' },
-  { id: 3, time: '00:01.10', level: 'WARN', category: 'TRAFFIC', message: 'High throughput: 1,420 claims/sec routed to API Gateway' },
-  { id: 4, time: '00:01.85', level: 'DIAGNOSTIC', category: 'DATABASE', message: 'Optimizing SQL Server execution plans: 0 deadlocks, latency < 42ms' },
+const CORE_STACK_CHIPS = [
+  'C#',
+  '.NET 8 / ASP.NET Core',
+  'SQL Server',
+  'REST Web APIs',
+  'Azure DevOps'
 ];
 
 export const Hero: React.FC<HeroProps> = ({ onExploreWorkClick }) => {
-  const { reducedMotion } = useReducedMotion();
-  const [traceStep, setTraceStep] = useState<number>(() => (reducedMotion ? 4 : 0));
-  const [isSkipped, setIsSkipped] = useState<boolean>(() => reducedMotion);
-  const [selectedFilter, setSelectedFilter] = useState<'ALL' | 'SYSTEM' | 'TRAFFIC' | 'DATABASE'>('ALL');
-  const [copiedTrace, setCopiedTrace] = useState(false);
-
-  useEffect(() => {
-    if (reducedMotion || isSkipped) {
-      setTraceStep(4);
-      return;
-    }
-
-    const timer1 = setTimeout(() => setTraceStep(1), 350);
-    const timer2 = setTimeout(() => setTraceStep(2), 850);
-    const timer3 = setTimeout(() => setTraceStep(3), 1500);
-    const timer4 = setTimeout(() => setTraceStep(4), 2200);
-
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-      clearTimeout(timer3);
-      clearTimeout(timer4);
-    };
-  }, [reducedMotion, isSkipped]);
-
-  const handleSkip = () => {
-    setIsSkipped(true);
-    setTraceStep(4);
-  };
-
-  const handleCopyLogs = async () => {
-    const text = TRACE_LOGS.map((l) => `[${l.time}] [${l.level}] ${l.message}`).join('\n') +
-      '\n[OK 200] Resolved to Manoj Kumar Movva (Backend .NET Developer)';
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopiedTrace(true);
-      setTimeout(() => setCopiedTrace(false), 2000);
-    } catch {
-      // Fallback
-    }
-  };
-
-  const filteredLogs = TRACE_LOGS.filter(
-    (l) => selectedFilter === 'ALL' || l.category === selectedFilter
-  );
-
   return (
-    <section id="hero" className={styles.heroSection} aria-label="Incident Room Hero">
+    <section id="hero" className={styles.heroSection} aria-label="Candidate Overview">
       <div className={`container ${styles.heroGrid}`}>
-        {/* Left Column: Core Identity & Technical Pitch */}
+        {/* Left Column: Recruiter Strip (H1) */}
         <div className={styles.contentColumn}>
+          {/* Availability Status Badge */}
           <Reveal delay={0.05}>
-            <div className={styles.telemetryBadge}>
+            <div className={styles.availabilityBadge}>
               <span className={styles.badgePulse} />
-              <ScrambleText text="INCIDENT ROOM ACTIVE · LIVE STATUS" />
+              <span className={styles.badgeText}>AVAILABLE · 1-MONTH NOTICE</span>
             </div>
           </Reveal>
 
-          <Reveal delay={0.15}>
-            <h1 className={styles.title}>
-              <KineticTitle text={profileData.name} />
-              <span className={styles.accentRole}>
-                <ShimmerSpan>{profileData.headlineRole}</ShimmerSpan>
-              </span>
-            </h1>
+          {/* Name & Headline Role */}
+          <Reveal delay={0.12}>
+            <div className={styles.titleBlock}>
+              <h1 className={styles.candidateName}>{profileData.name}</h1>
+              <div className={styles.roleSubhead}>{profileData.headlineRole}</div>
+            </div>
           </Reveal>
 
-          <Reveal delay={0.25}>
-            <p className={styles.pitch}>
+          {/* Strict 11-word Pitch */}
+          <Reveal delay={0.18}>
+            <p className={styles.pitchText}>
               {profileData.tagline}
             </p>
           </Reveal>
 
-          <Reveal delay={0.35}>
-            <div className={styles.metaRow}>
-              <div className={styles.metaItem}>
-                <MapPin size={15} color="var(--color-accent)" />
+          {/* Vitals Bar: Location, Experience, Notice Period */}
+          <Reveal delay={0.24}>
+            <div className={styles.vitalsBar}>
+              <div className={styles.vitalItem}>
+                <MapPin size={14} className={styles.vitalIconAmber} />
                 <span>{profileData.location}</span>
               </div>
-              <div className={styles.metaItem}>
-                <Clock size={15} color="var(--color-health)" />
+              <div className={styles.vitalDivider}>•</div>
+              <div className={styles.vitalItem}>
+                <Clock size={14} className={styles.vitalIconGreen} />
                 <span>{profileData.experienceYears} Experience</span>
               </div>
-              <div className={styles.metaItem}>
-                <ShieldCheck size={15} color="var(--color-cyan)" />
+              <div className={styles.vitalDivider}>•</div>
+              <div className={styles.vitalItem}>
+                <ShieldCheck size={14} className={styles.vitalIconCyan} />
                 <span>Notice: {profileData.noticePeriod}</span>
               </div>
             </div>
           </Reveal>
 
-          <Reveal delay={0.45}>
-            <div className={styles.actionCluster}>
-              <MagneticButton
-                as="a"
+          {/* Core Technologies Chips (5 chips) */}
+          <Reveal delay={0.3}>
+            <div className={styles.chipsContainer}>
+              <div className={styles.chipsLabel}>PRIMARY TECHNOLOGIES:</div>
+              <div className={styles.chipsList}>
+                {CORE_STACK_CHIPS.map((chip) => (
+                  <span key={chip} className={styles.techChip}>
+                    {chip}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Primary Action Buttons */}
+          <Reveal delay={0.36}>
+            <div className={styles.actionRow}>
+              <a
                 href="#projects"
                 onClick={onExploreWorkClick}
                 className={styles.btnPrimary}
-                aria-label="View verified backend projects"
+                aria-label="View verified projects"
               >
-                <span>View My Work</span>
-                <ArrowDown size={16} />
-              </MagneticButton>
+                <span>View Projects</span>
+                <ArrowDown size={15} />
+              </a>
 
-              <MagneticButton
-                as="a"
+              <a
                 href="/resume/Manoj_Kumar_Movva.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.btnSecondary}
                 aria-label="Download verified resume PDF"
               >
-                <FileText size={16} />
+                <FileText size={15} />
                 <span>Download Resume</span>
-              </MagneticButton>
+              </a>
             </div>
           </Reveal>
         </div>
 
-        {/* Right Column: Impeccable Interactive Telemetry Console */}
-        <div className={styles.consoleColumn}>
+        {/* Right Column: Compact Incident Room System Card */}
+        <div className={styles.schematicColumn}>
           <Reveal delay={0.2}>
-            <div className={styles.traceCard}>
-              <div className={styles.traceHeader}>
-                <div className={styles.trafficLights}>
-                  <span className={`${styles.trafficDot} ${styles.dotRed}`} />
-                  <span className={`${styles.trafficDot} ${styles.dotYellow}`} />
-                  <span className={`${styles.trafficDot} ${styles.dotGreen}`} />
-                  <span className={styles.traceTitle}>sys_telemetry.trace</span>
+            <div className={styles.schematicCard}>
+              <div className={styles.cardHeader}>
+                <div className={styles.systemStatus}>
+                  <span className={styles.pulseGreen} />
+                  <span>INCIDENT ROOM TELEMETRY</span>
                 </div>
+                <span className={styles.clusterTag}>ENV: PRODUCTION</span>
+              </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <button
-                    type="button"
-                    onClick={handleCopyLogs}
-                    className={styles.toolBtn}
-                    aria-label="Copy incident trace logs"
-                    title="Copy Trace Logs"
-                  >
-                    {copiedTrace ? <Check size={13} color="var(--color-health)" /> : <Copy size={13} />}
-                    <span>{copiedTrace ? 'COPIED' : 'COPY'}</span>
-                  </button>
-
-                  {!isSkipped && traceStep < 4 && (
-                    <button
-                      type="button"
-                      onClick={handleSkip}
-                      className={styles.skipButton}
-                      aria-label="Skip Trace Animation"
-                    >
-                      Skip ⏩
-                    </button>
-                  )}
+              <div className={styles.profileSummaryRow}>
+                <div className={styles.avatarPlaceholder}>
+                  <Terminal size={24} color="var(--color-accent)" />
+                </div>
+                <div className={styles.profileMeta}>
+                  <div className={styles.metaTitle}>Manoj Kumar Movva</div>
+                  <div className={styles.metaSub}>Software Developer · Linkfields Innovations</div>
+                  <div className={styles.metaDomain}>Domain: Enterprise Insurance Platform</div>
                 </div>
               </div>
 
-              {/* Interactive Telemetry Log Filters */}
-              <div className={styles.filterBar}>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', color: 'var(--text-tertiary)', fontSize: '0.7rem' }}>
-                  <Filter size={11} /> FILTER:
-                </span>
-                {(['ALL', 'SYSTEM', 'TRAFFIC', 'DATABASE'] as const).map((cat) => (
-                  <button
-                    key={cat}
-                    type="button"
-                    onClick={() => setSelectedFilter(cat)}
-                    className={`${styles.filterChip} ${selectedFilter === cat ? styles.filterChipActive : ''}`}
-                  >
-                    {cat}
-                  </button>
-                ))}
+              <div className={styles.quickFactsGrid}>
+                <div className={styles.factTile}>
+                  <div className={styles.factLabel}>PRIMARY RUNTIME</div>
+                  <div className={styles.factVal}>.NET 8 / C#</div>
+                </div>
+                <div className={styles.factTile}>
+                  <div className={styles.factLabel}>DATA ENGINE</div>
+                  <div className={styles.factVal}>SQL Server</div>
+                </div>
+                <div className={styles.factTile}>
+                  <div className={styles.factLabel}>ORCHESTRATION</div>
+                  <div className={styles.factVal}>Service Fabric</div>
+                </div>
+                <div className={styles.factTile}>
+                  <div className={styles.factLabel}>STATUS</div>
+                  <div className={styles.factValHealth}>Available</div>
+                </div>
               </div>
 
-              <div className={styles.traceBody} aria-live="polite">
-                {filteredLogs.map((log) => {
-                  if (traceStep < log.id - 1) return null;
-                  let levelClass = styles.logLevelInfo;
-                  if (log.level === 'WARN') levelClass = styles.logLevelWarn;
-                  if (log.level === 'DIAGNOSTIC') levelClass = styles.logLevelInfo;
-
-                  return (
-                    <div key={log.id} className={styles.logEntry}>
-                      <span className={styles.logTime}>{log.time}</span>
-                      <span className={levelClass}>[{log.level}]</span>
-                      <span>{log.message}</span>
-                    </div>
-                  );
-                })}
-
-                {traceStep >= 4 && (
-                  <div className={styles.resolvedResolution}>
-                    <div className={styles.resolvedHeader}>
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                        <CheckCircle2 size={16} />
-                        SYSTEM STABLE · RESOLVED
-                      </span>
-                      <span>200 OK</span>
-                    </div>
-                    <div className={styles.resolvedName}>Manoj Kumar Movva</div>
-                    <div className={styles.resolvedStack}>
-                      Core Backend: C# · ASP.NET Core 8 · SQL Server · Service Fabric · REST APIs
-                    </div>
+              {/* Restrained Illustrative Telemetry (Explicitly labeled) */}
+              <div className={styles.telemetryBox}>
+                <div className={styles.telemetryHeader}>
+                  <span>SESSION LOGS</span>
+                  <span className={styles.illustrativeLabel}>[Illustrative Data]</span>
+                </div>
+                <div className={styles.logStream}>
+                  <div className={styles.logLine}>
+                    <span className={styles.logTime}>00:00.1</span>
+                    <span className={styles.logOk}>[OK]</span>
+                    <span>HTTP/2 TLS 1.3 handshake verified</span>
                   </div>
-                )}
+                  <div className={styles.logLine}>
+                    <span className={styles.logTime}>00:00.3</span>
+                    <span className={styles.logInfo}>[INFO]</span>
+                    <span>ASP.NET Core Web API routes registered</span>
+                  </div>
+                  <div className={styles.logLine}>
+                    <span className={styles.logTime}>00:00.6</span>
+                    <span className={styles.logOk}>[OK]</span>
+                    <span>SQL Server connection pool ready</span>
+                  </div>
+                </div>
+                <div className={styles.telemetryFooter}>
+                  <CheckCircle2 size={13} color="var(--color-health)" />
+                  <span>Ready for backend engineering impact</span>
+                </div>
               </div>
             </div>
           </Reveal>

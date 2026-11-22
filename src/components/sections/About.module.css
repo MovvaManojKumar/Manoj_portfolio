@@ -1,115 +1,98 @@
 .aboutSection {
-  padding-block: 5.5rem;
-  border-top: 1px solid var(--border-subtle);
+  padding: 4.5rem 0;
   position: relative;
 }
 
-.aboutGrid {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 3.5rem;
-  align-items: start;
+.sectionHeader {
+  margin-bottom: 2rem;
 }
 
 .sectionLabel {
   font-family: var(--font-mono);
   font-size: 0.8125rem;
   color: var(--color-accent);
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 0.75rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
 }
 
 .sectionTitle {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 3.5vw, 2.75rem);
-  font-weight: 700;
-  line-height: 1.15;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.narrativeCard {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.6rem 2rem;
   margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.shortBioText {
+  font-family: var(--font-body);
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  line-height: 1.65;
   color: var(--text-primary);
+  font-weight: 500;
 }
 
-.bioProse {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  font-size: 1.0625rem;
-  color: var(--text-secondary);
-  line-height: 1.7;
-}
-
-.highlightText {
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-/* Right Metric Vitals Panel */
-.vitalsPanel {
+.proofGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--bento-gap-desktop);
 }
 
-.vitalCard {
-  background-color: var(--bg-surface);
+.proofTile {
+  background-color: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: 1.5rem;
+  padding: 1.25rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
   box-shadow: var(--shadow-sm);
   transition: all var(--duration-fast) var(--ease-in-out);
-  position: relative;
-  overflow: hidden;
 }
 
-.vitalCard:hover {
-  border-color: var(--color-accent-border);
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
+.proofTile:hover {
+  border-color: var(--color-accent);
+  background-color: var(--bg-surface-elevated);
+  transform: translateY(-2px);
 }
 
-.vitalCard::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background-color: var(--color-accent);
-  opacity: 0.7;
-}
-
-.vitalValue {
-  font-family: var(--font-display);
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 0.25rem;
-}
-
-.vitalLabel {
+.proofLabel {
   font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--color-accent);
-  margin-bottom: 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  letter-spacing: 0.05em;
 }
 
-.vitalSub {
-  font-size: 0.8125rem;
-  color: var(--text-tertiary);
-  line-height: 1.4;
+.proofValue {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.proofSub {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
 }
 
 @media (max-width: 900px) {
-  .aboutGrid {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
+  .proofGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--bento-gap-mobile);
   }
 }
 
-@media (max-width: 500px) {
-  .vitalsPanel {
+@media (max-width: 480px) {
+  .proofGrid {
     grid-template-columns: 1fr;
   }
 }

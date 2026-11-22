@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X, ExternalLink, Github } from 'lucide-react';
+import { X, Github, CheckCircle2, ShieldAlert, Cpu, Wrench, Lightbulb } from 'lucide-react';
 import styles from './CaseStudyModal.module.css';
 import { ProjectCaseStudy } from '../../data/projects';
 
@@ -30,7 +30,7 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({ project, onClose
   return (
     <div className={styles.overlay} onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="modal-project-title">
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-        {/* Header */}
+        {/* Modal Header */}
         <div className={styles.modalHeader}>
           <div>
             <div className={styles.categoryTag}>{project.category} · ARCHITECTURAL DEEP DIVE</div>
@@ -46,100 +46,141 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({ project, onClose
           </button>
         </div>
 
-        {/* Problem Statement */}
-        <div className={styles.sectionBlock}>
-          <div className={styles.blockTitle}>// 01. The Problem & Requirements</div>
-          <p className={styles.blockProse}>{project.problem}</p>
-        </div>
-
-        {/* Solution & Implementation */}
-        <div className={styles.sectionBlock}>
-          <div className={styles.blockTitle}>// 02. Architectural Solution</div>
-          <p className={styles.blockProse}>{project.solution}</p>
-          <ul className={styles.architectureList}>
-            {project.architectureDetails.map((detail, idx) => (
-              <li key={idx} className={styles.architectureItem}>
-                <span className={styles.bullet}>▸</span>
-                <span>{detail}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Key Endpoints / Microservice API Contracts */}
-        <div className={styles.sectionBlock}>
-          <div className={styles.blockTitle}>// 03. Core Service Contracts & Endpoints</div>
-          <div className={styles.endpointsGrid}>
-            {project.keyEndpointsOrFeatures.map((feat, idx) => (
-              <div key={idx} className={styles.endpointCard}>
-                <div className={styles.endpointName}>
-                  {feat.name} {feat.badge && <span style={{ color: 'var(--color-accent)', fontWeight: 'normal', fontSize: '0.75rem' }}>({feat.badge})</span>}
-                </div>
-                <div className={styles.endpointDesc}>{feat.description}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Database Highlights if present */}
-        {project.databaseHighlights && (
+        {/* 10-Part Standardized Case Study Body */}
+        <div className={styles.modalBody}>
+          {/* 1. Problem Statement */}
           <div className={styles.sectionBlock}>
-            <div className={styles.blockTitle}>// 04. Database & Storage Architecture</div>
-            <p className={styles.blockProse}>{project.databaseHighlights}</p>
+            <div className={styles.blockTitle}>// 01. The Problem & Requirements</div>
+            <p className={styles.blockProse}>{project.problem}</p>
           </div>
-        )}
 
-        {/* Lessons Learned */}
-        <div className={styles.sectionBlock}>
-          <div className={styles.blockTitle}>// 05. Engineering Takeaways</div>
-          <p className={styles.blockProse}>{project.lessonsLearned}</p>
+          {/* 2. My Contribution */}
+          <div className={styles.sectionBlock}>
+            <div className={styles.blockTitle}>// 02. Personal Contribution & Ownership</div>
+            <div className={styles.contributionBox}>
+              <Cpu size={16} color="var(--color-accent)" className={styles.blockIcon} />
+              <p className={styles.blockProse}>{project.myContribution}</p>
+            </div>
+          </div>
+
+          {/* 3. System Architecture */}
+          <div className={styles.sectionBlock}>
+            <div className={styles.blockTitle}>// 03. System Architecture & Topology</div>
+            <ul className={styles.architectureList}>
+              {project.architectureDetails.map((detail, idx) => (
+                <li key={idx} className={styles.archItem}>
+                  <span className={styles.bulletNumber}>0{idx + 1}.</span>
+                  <span>{detail}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* 4. Verified Technology Stack */}
+          <div className={styles.sectionBlock}>
+            <div className={styles.blockTitle}>// 04. Verified Technology Stack</div>
+            <div className={styles.techPillGrid}>
+              {project.techStack.map((tech) => (
+                <span key={tech} className={styles.techPill}>
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* 5. Key Backend Features */}
+          <div className={styles.sectionBlock}>
+            <div className={styles.blockTitle}>// 05. Key Features & Workflows</div>
+            <div className={styles.endpointsList}>
+              {project.keyEndpointsOrFeatures.map((feat, idx) => (
+                <div key={idx} className={styles.endpointCard}>
+                  <div className={styles.endpointTop}>
+                    <span className={styles.endpointName}>{feat.name}</span>
+                    {feat.badge && <span className={styles.endpointBadge}>{feat.badge}</span>}
+                  </div>
+                  <p className={styles.endpointDesc}>{feat.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 6. Engineering Decisions */}
+          {project.engineeringDecisions && project.engineeringDecisions.length > 0 && (
+            <div className={styles.sectionBlock}>
+              <div className={styles.blockTitle}>// 06. Engineering Decisions & Trade-Offs</div>
+              <div className={styles.decisionsList}>
+                {project.engineeringDecisions.map((dec, idx) => (
+                  <div key={idx} className={styles.decisionCard}>
+                    <div className={styles.decisionTitle}>
+                      <Wrench size={14} color="var(--color-accent)" />
+                      <span>{dec.title}</span>
+                    </div>
+                    <p className={styles.decisionText}>{dec.decision}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* 7. Challenges & Debugging */}
+          <div className={styles.sectionBlock}>
+            <div className={styles.blockTitle}>// 07. Production Challenges & Debugging</div>
+            <div className={styles.challengeBox}>
+              <ShieldAlert size={16} color="var(--color-incident)" className={styles.blockIcon} />
+              <p className={styles.blockProse}>{project.challenges}</p>
+            </div>
+          </div>
+
+          {/* 8. Measurable Outcomes */}
+          <div className={styles.sectionBlock}>
+            <div className={styles.blockTitle}>// 08. Verified Outcomes & Reliability</div>
+            <div className={styles.outcomeBox}>
+              <CheckCircle2 size={16} color="var(--color-health)" className={styles.blockIcon} />
+              <p className={styles.blockProse}>{project.measurableOutcomes}</p>
+            </div>
+          </div>
+
+          {/* 9. Verified Links */}
+          <div className={styles.sectionBlock}>
+            <div className={styles.blockTitle}>// 09. Repository & Demonstration Links</div>
+            <div className={styles.linksRow}>
+              {project.githubUrl ? (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.linkButton}
+                >
+                  <Github size={16} />
+                  <span>GitHub Repository ↗</span>
+                </a>
+              ) : (
+                <div className={styles.confidentialNotice}>
+                  <span>Client Restricted: Proprietary Enterprise Codebase (Protected)</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* 10. Lessons Learned */}
+          <div className={styles.sectionBlock}>
+            <div className={styles.blockTitle}>// 10. Engineering Reflection & Lessons Learned</div>
+            <div className={styles.lessonsBox}>
+              <Lightbulb size={16} color="var(--color-accent)" className={styles.blockIcon} />
+              <p className={styles.blockProse}>{project.lessonsLearned}</p>
+            </div>
+          </div>
         </div>
 
-        {/* Technology Pills */}
-        <div className={styles.sectionBlock}>
-          <div className={styles.blockTitle}>// 06. Verified Stack</div>
-          <div className={styles.techPills}>
-            {project.techStack.map((tech) => (
-              <span key={tech} className={styles.techPill}>
-                {tech}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Footer Actions */}
+        {/* Footer */}
         <div className={styles.modalFooter}>
-          <div style={{ fontSize: '0.8rem', color: 'var(--text-tertiary)' }}>
-            Verified Source: {project.isProfessional ? 'Enterprise Production Codebase' : 'Project Repository'}
-          </div>
-
-          <div className={styles.actionLinks}>
-            {project.githubUrl && (
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.linkBtn}
-              >
-                <Github size={15} />
-                <span>View GitHub</span>
-              </a>
-            )}
-            {project.liveUrl && (
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.linkBtn}
-              >
-                <ExternalLink size={15} />
-                <span>Live System</span>
-              </a>
-            )}
-            <button type="button" onClick={onClose} className={styles.linkBtn}>
-              <span>Close Window</span>
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className={styles.modalCloseFooterBtn}
+          >
+            Dismiss Case Study
+          </button>
         </div>
       </div>
     </div>

@@ -1,95 +1,87 @@
-import React, { useState } from 'react';
-import { Database } from 'lucide-react';
+import React from 'react';
+import { Database, Check } from 'lucide-react';
 import styles from './Skills.module.css';
-import { skillsData } from '../../data/skills';
+import { skillDomains, additionalExposureSkills } from '../../data/skills';
 import { Reveal } from '../motion/Reveal';
 
 export const Skills: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
-
-  const filteredGroups = selectedCategory === 'ALL'
-    ? skillsData
-    : skillsData.filter((g) => g.categoryCode === selectedCategory);
-
-  const activeGroup = skillsData.find((g) => g.categoryCode === selectedCategory) || skillsData[0];
-
   return (
     <section id="skills" className={styles.skillsSection} aria-label="Technical Skills">
       <div className="container">
+        {/* Section Header */}
         <div className={styles.sectionHeader}>
           <Reveal>
-            <div className={styles.sectionLabel}>// 03. Engine Capabilities</div>
-            <h2 className={styles.sectionTitle}>Technical Skills & Distributed Stack</h2>
+            <div className={styles.sectionLabel}>// 02. Technical Competencies</div>
+            <h2 className={styles.sectionTitle}>Skills Matrix & Engineering Stack</h2>
           </Reveal>
         </div>
 
-        {/* SQL Query Metaphor Interface */}
+        {/* SQL Query Bento Console */}
         <Reveal delay={0.1}>
           <div className={styles.queryTerminal}>
             <div className={styles.terminalBar}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              <span className={styles.terminalBarLeft}>
                 <Database size={14} color="var(--color-cyan)" />
                 SSMS Query Execution — Master Schema
               </span>
-              <span>ROWS RETURNED: {skillsData.reduce((acc, curr) => acc + curr.skills.length, 0)}</span>
+              <span className={styles.terminalBarRight}>STATUS: 200 OK</span>
             </div>
 
-            <div style={{ lineHeight: 1.6 }}>
-              <span className={styles.sqlKeyword}>SELECT</span> skill_name, proficiency, category_tags<br />
+            <div className={styles.sqlCodeBlock}>
+              <span className={styles.sqlKeyword}>SELECT</span> skill_name, domain, proficiency<br />
               <span className={styles.sqlKeyword}>FROM</span> sys.developer_competencies<br />
-              <span className={styles.sqlKeyword}>{activeGroup.queryFilter}</span>;<br />
-              <span className={styles.sqlComment}>-- Query executed in 1.4ms with 0 lock contention</span>
+              <span className={styles.sqlKeyword}>WHERE</span> status = <span className={styles.sqlLiteral}>'PRODUCTION_READY'</span>;
             </div>
           </div>
         </Reveal>
 
-        {/* Category Tabs */}
-        <div className={styles.tabsList}>
-          <button
-            type="button"
-            className={`${styles.tabButton} ${selectedCategory === 'ALL' ? styles.tabButtonActive : ''}`}
-            onClick={() => setSelectedCategory('ALL')}
-          >
-            ALL CATEGORIES
-          </button>
-          {skillsData.map((group) => (
-            <button
-              key={group.categoryCode}
-              type="button"
-              className={`${styles.tabButton} ${selectedCategory === group.categoryCode ? styles.tabButtonActive : ''}`}
-              onClick={() => setSelectedCategory(group.categoryCode)}
-            >
-              {group.category.toUpperCase()}
-            </button>
+        {/* 3-Column Bento Domains */}
+        <div className={styles.bentoGrid}>
+          {skillDomains.map((domain, idx) => (
+            <Reveal key={domain.id} delay={0.15 + idx * 0.1}>
+              <div className={styles.domainCard}>
+                <div className={styles.domainHeader}>
+                  <div className={styles.domainTitle}>{domain.title}</div>
+                  <span className={styles.domainBadge}>Verified</span>
+                </div>
+
+                <div className={styles.domainSql}>
+                  <code>-- {domain.sqlWhere}</code>
+                </div>
+
+                <ul className={styles.skillList}>
+                  {domain.skills.map((skill) => (
+                    <li key={skill.name} className={styles.skillItem}>
+                      <span className={styles.checkIcon}>
+                        <Check size={13} />
+                      </span>
+                      <span className={skill.isCore ? styles.coreSkillText : styles.normalSkillText}>
+                        {skill.name}
+                      </span>
+                      {skill.isCore && <span className={styles.coreTag}>CORE</span>}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
           ))}
         </div>
 
-        {/* Skills Cards Grid */}
-        <div className={styles.skillsGrid}>
-          {filteredGroups.flatMap((group) =>
-            group.skills.map((skill, sIdx) => (
-              <div
-                key={`${group.categoryCode}-${sIdx}`}
-                className={`${styles.skillCard} ${skill.highlight ? styles.skillCardHighlight : ''}`}
-              >
-                <div className={styles.cardTop}>
-                  <h3 className={styles.skillName}>{skill.name}</h3>
-                  <span className={styles.levelBadge}>{skill.level}</span>
-                </div>
-
-                {skill.tags && (
-                  <div className={styles.cardTags}>
-                    {skill.tags.map((tag) => (
-                      <span key={tag} className={styles.subTag}>
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))
-          )}
-        </div>
+        {/* Academic & Additional Exposure Strip */}
+        <Reveal delay={0.35}>
+          <div className={styles.additionalBox}>
+            <div className={styles.additionalLabel}>
+              ACADEMIC & ADDITIONAL EXPOSURE:
+            </div>
+            <div className={styles.additionalChips}>
+              {additionalExposureSkills.map((tech) => (
+                <span key={tech} className={styles.additionalChip}>
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

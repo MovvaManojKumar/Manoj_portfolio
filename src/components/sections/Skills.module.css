@@ -1,155 +1,228 @@
 .skillsSection {
-  padding-block: 5.5rem;
-  border-top: 1px solid var(--border-subtle);
+  padding: 4.5rem 0;
   position: relative;
 }
 
 .sectionHeader {
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 .sectionLabel {
   font-family: var(--font-mono);
   font-size: 0.8125rem;
   color: var(--color-accent);
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 0.75rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
 }
 
 .sectionTitle {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 3.5vw, 2.75rem);
-  font-weight: 700;
-  line-height: 1.15;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 800;
   color: var(--text-primary);
+  letter-spacing: -0.01em;
 }
 
-/* SQL Query Box */
 .queryTerminal {
   background-color: var(--code-bg);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: 1.5rem;
-  margin-bottom: 2.5rem;
+  overflow: hidden;
+  margin-bottom: 1.75rem;
   box-shadow: var(--shadow-sm);
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
 }
 
 .terminalBar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 0.75rem;
-  margin-bottom: 0.75rem;
-  border-bottom: 1px solid var(--border-subtle);
-  color: var(--text-tertiary);
-  font-size: 0.75rem;
-}
-
-.sqlKeyword { color: #F472B6; font-weight: 600; }
-.sqlFunction { color: #38BDF8; }
-.sqlString { color: #34D399; }
-.sqlComment { color: var(--text-tertiary); font-style: italic; }
-
-/* Filter Tabs */
-.tabsList {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
-}
-
-.tabButton {
   padding: 0.5rem 1rem;
   background-color: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-subtle);
   font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  font-weight: 500;
-  transition: all var(--duration-fast);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
 }
 
-.tabButton:hover {
-  border-color: var(--border-active);
-  color: var(--text-primary);
-}
-
-.tabButtonActive {
-  background-color: var(--color-accent-subtle);
-  border-color: var(--color-accent);
-  color: var(--color-accent);
+.terminalBarLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
   font-weight: 600;
 }
 
-/* Skills Grid */
-.skillsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.25rem;
+.terminalBarRight {
+  color: var(--color-health);
+  font-weight: 700;
 }
 
-.skillCard {
-  background-color: var(--bg-surface);
+.sqlCodeBlock {
+  padding: 0.9rem 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.sqlKeyword {
+  color: var(--color-cyan);
+  font-weight: 700;
+}
+
+.sqlLiteral {
+  color: var(--color-accent);
+}
+
+.bentoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--bento-gap-desktop);
+  margin-bottom: 1.5rem;
+}
+
+.domainCard {
+  background-color: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 1.25rem 1.5rem;
-  box-shadow: var(--shadow-sm);
-  transition: all var(--duration-fast);
+  border-radius: var(--radius-lg);
+  padding: 1.4rem;
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.9rem;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--duration-fast) var(--ease-in-out);
 }
 
-.skillCard:hover {
+.domainCard:hover {
   border-color: var(--border-active);
+  background-color: var(--bg-surface-elevated);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
 }
 
-.skillCardHighlight {
-  border-left: 3px solid var(--color-accent);
-}
-
-.cardTop {
+.domainHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.skillName {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
+.domainTitle {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
   font-weight: 700;
+  color: var(--color-accent);
+  letter-spacing: 0.03em;
+}
+
+.domainBadge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--color-health);
+  padding: 0.15rem 0.5rem;
+  background-color: var(--color-health-subtle);
+  border-radius: var(--radius-full);
+}
+
+.domainSql {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.skillList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  list-style: none;
+}
+
+.skillItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
+}
+
+.checkIcon {
+  color: var(--color-health);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.coreSkillText {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.normalSkillText {
+  color: var(--text-secondary);
+}
+
+.coreTag {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  background-color: var(--color-accent-subtle);
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  margin-left: auto;
+}
+
+.additionalBox {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.additionalLabel {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  letter-spacing: 0.05em;
+}
+
+.additionalChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.additionalChip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.75rem;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  transition: all var(--duration-fast) var(--ease-in-out);
+}
+
+.additionalChip:hover {
+  border-color: var(--color-accent);
   color: var(--text-primary);
 }
 
-.levelBadge {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  font-weight: 600;
-  padding: 0.2rem 0.5rem;
-  border-radius: var(--radius-full);
-  background-color: var(--bg-surface-elevated);
-  color: var(--color-health);
-  border: 1px solid rgba(61, 214, 140, 0.25);
+@media (max-width: 960px) {
+  .bentoGrid {
+    grid-template-columns: 1fr;
+    gap: var(--bento-gap-mobile);
+  }
 }
 
-.cardTags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
-
-.subTag {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--text-tertiary);
-  background-color: var(--code-bg);
-  padding: 0.15rem 0.45rem;
-  border-radius: var(--radius-sm);
+@media (max-width: 640px) {
+  .skillsSection {
+    padding: 3rem 0;
+  }
 }
